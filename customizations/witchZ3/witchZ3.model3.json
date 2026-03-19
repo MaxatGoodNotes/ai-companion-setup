@@ -1,0 +1,70 @@
+{
+	"Version": 3,
+	"FileReferences": {
+		"Moc": "witchZ3.moc3",
+		"Textures": [
+			"witchZ3.4096/texture_00.png",
+			"witchZ3.4096/texture_01.png",
+			"witchZ3.4096/texture_02.png"
+		],
+		"Physics": "witchZ3.physics3.json",
+		"DisplayInfo": "witchZ3.cdi3.json",
+		"Expressions": [
+			{ "Name": "F1", "File": "F1.exp3.json" },
+			{ "Name": "F2", "File": "F2.exp3.json" },
+			{ "Name": "F3", "File": "F3.exp3.json" },
+			{ "Name": "F4", "File": "F4.exp3.json" },
+			{ "Name": "F5", "File": "F5.exp3.json" },
+			{ "Name": "F6", "File": "F6.exp3.json" },
+			{ "Name": "F7", "File": "F7.exp3.json" },
+			{ "Name": "F8", "File": "F8.exp3.json" },
+			{ "Name": "F9", "File": "F9.exp3.json" },
+			{ "Name": "F10", "File": "F10.exp3.json" },
+			{ "Name": "F11", "File": "F11.exp3.json" },
+			{ "Name": "N1", "File": "N1.exp3.json" },
+			{ "Name": "N2", "File": "N2.exp3.json" },
+			{ "Name": "N3", "File": "N3.exp3.json" },
+			{ "Name": "N4", "File": "N4.exp3.json" },
+			{ "Name": "N5", "File": "N5.exp3.json" },
+			{ "Name": "N6", "File": "N6.exp3.json" },
+			{ "Name": "N7", "File": "N7.exp3.json" },
+			{ "Name": "N8", "File": "N8.exp3.json" },
+			{ "Name": "N9", "File": "N9.exp3.json" },
+			{ "Name": "N10", "File": "N10.exp3.json" },
+			{ "Name": "tongue", "File": "tongue.exp3.json" },
+			{ "Name": "I", "File": "I.exp3.json" },
+			{ "Name": "LT", "File": "LT.exp3.json" },
+			{ "Name": "O", "File": "O.exp3.json" },
+			{ "Name": "RT", "File": "RT.exp3.json" },
+			{ "Name": "U", "File": "U.exp3.json" },
+			{ "Name": "E", "File": "E.exp3.json" },
+			{ "Name": "Q", "File": "Q.exp3.json" },
+			{ "Name": "R", "File": "R.exp3.json" },
+			{ "Name": "T", "File": "T.exp3.json" },
+			{ "Name": "ET", "File": "ET.exp3.json" },
+			{ "Name": "W", "File": "W.exp3.json" },
+			{ "Name": "write", "File": "write.exp3.json" },
+			{ "Name": "Y", "File": "Y.exp3.json" }
+		],
+		"Motions": {
+			"Idle": [
+				{ "File": "huishou.motion3.json" }
+			]
+		}
+	},
+	"Groups": [
+		{
+			"Target": "Parameter",
+			"Name": "EyeBlink",
+			"Ids": [
+				"ParamEyeLOpen",
+				"ParamEyeROpen"
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Name": "LipSync",
+			"Ids": ["ParamMouthOpenY"]
+		}
+	]
+}

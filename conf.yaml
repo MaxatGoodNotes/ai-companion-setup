@@ -1,5 +1,5 @@
 # Open-LLM-VTuber Configuration
-# Custom config for local AI companion with Dolphin + Kokoro TTS
+# Custom config for local AI companion with Dolphin + Kokoro TTS + witchZ3 model
 # Copy this file into your Open-LLM-VTuber directory
 
 system_config:
@@ -16,13 +16,13 @@ system_config:
 character_config:
   conf_name: 'mao_pro'
   conf_uid: 'mao_pro_001'
-  live2d_model_name: 'mao_pro'
+  live2d_model_name: 'witchZ3'
   character_name: 'Mao'
   avatar: 'mao.png'
   human_name: 'Human'
 
   persona_prompt: |
-    You are an irreverent, witty, and playful AI companion. Think of yourself as the fun friend who's always up for a wild tangent, a sarcastic quip, or an unhinged hot take. You're curious, creative, and never boring. You don't lecture or moralize — you engage, riff, and banter. You have strong opinions (even if they're ridiculous) and you're not afraid to be wrong for the sake of entertainment. You love wordplay, absurd hypotheticals, and genuine conversations. You're warm underneath the chaos. Keep responses punchy and conversational — no walls of text.
+    You are a sharp, witty, and irreverent AI companion — like the brutally honest friend who delivers sarcasm, clever jabs, and dry humor, but always aims to help you level up. You're opinionated, love banter, wordplay, and absurd hypotheticals when they fit naturally, but your core job is to engage thoughtfully: respond directly to what I say, point out flaws, weak logic, or missed angles with zero sugar-coating, and then suggest concrete improvements or better paths. Don't blindly agree or pat me on the back — call out bullshit, inconsistencies, or lazy thinking, but do it to push me forward, not just to dunk. Underneath the edge, you're warm and genuinely invested in seeing me succeed. Stay punchy, conversational, and natural — no lectures, no walls of text, just smart back-and-forth with teeth.
 
   agent_config:
     conversation_agent_choice: 'basic_memory_agent'
@@ -35,84 +35,28 @@ character_config:
         use_mcpp: False
         mcp_enabled_servers: []
 
-      letta_agent:
-        host: 'localhost'
-        port: 8283
-        id: xxx
-        faster_first_response: True
-        segment_method: 'pysbd'
-
-      hume_ai_agent:
-        api_key: ''
-        host: 'api.hume.ai'
-        config_id: ''
-        idle_timeout: 15
-
-    llm_configs:
-      ollama_llm:
-        base_url: 'http://localhost:11434/v1'
-        model: 'dolphin-llama3:latest'
-        temperature: 1.2
-        keep_alive: -1
-        unload_at_exit: True
-
-      openai_compatible_llm:
-        base_url: 'http://localhost:11434/v1'
-        llm_api_key: 'not-needed'
-        organization_id: null
-        project_id: null
-        model: 'dolphin-llama3:latest'
-        temperature: 1.2
-        interrupt_method: 'user'
-
   asr_config:
     asr_model: 'sherpa_onnx_asr'
-
-    sherpa_onnx_asr:
-      model_type: 'sense_voice'
-      sense_voice: './models/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-2024-07-17/model.int8.onnx'
-      tokens: './models/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-2024-07-17/tokens.txt'
-      num_threads: 4
-      use_itn: True
-      provider: 'cpu'
+    asr_settings:
+      sherpa_onnx_asr:
+        model_type: 'sense_voice'
+        tokens: './models/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-2024-07-17/tokens.txt'
+        sense_voice_model: './models/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-2024-07-17/model.int8.onnx'
 
   tts_config:
-    # Use 'openai_tts' for Kokoro (natural voice, requires Kokoro server)
-    # Use 'edge_tts' for quick setup (robotic but no extra server needed)
     tts_model: 'openai_tts'
+    tts_settings:
+      openai_tts:
+        base_url: 'http://localhost:8880/v1'
+        api_key: 'not-needed'
+        model: 'kokoro'
+        voice: 'af_sky+af_bella'
+        speed: 1.0
+        response_format: 'pcm'
 
-    edge_tts:
-      voice: 'en-US-EmmaMultilingualNeural'
-
-    openai_tts:
-      model: 'kokoro'
-      voice: 'af_sky+af_bella'
-      api_key: 'not-needed'
-      base_url: 'http://localhost:8880/v1'
-      file_extension: 'mp3'
-
-  vad_config:
-    vad_model: null
-
-    silero_vad:
-      orig_sr: 16000
-      target_sr: 16000
-      prob_threshold: 0.4
-      db_threshold: 60
-      required_hits: 3
-      required_misses: 24
-      smoothing_window: 5
-
-  tts_preprocessor_config:
-    remove_special_char: True
-    ignore_brackets: True
-    ignore_parentheses: True
-    ignore_asterisks: True
-    ignore_angle_brackets: True
-
-    translator_config:
-      translate_audio: False
-      translate_provider: 'deeplx'
-      deeplx:
-        deeplx_target_lang: 'JA'
-        deeplx_api_endpoint: 'http://localhost:1188/v2/translate'
+  llm_config:
+    ollama_llm:
+      base_url: 'http://localhost:11434/v1'
+      model: 'dolphin-llama3:latest'
+      temperature: 0.7
+      llm_api_key: 'not-needed'
