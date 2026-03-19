@@ -23,6 +23,8 @@ $kokoro = Start-Process powershell -ArgumentList @("-NoExit", "-Command", @"
     `$env:MODEL_DIR='src/models'
     `$env:VOICES_DIR='src/voices/v1_0'
     `$env:WEB_PLAYER_PATH="`$PWD\web"
+    `$env:TARGET_MIN_TOKENS='100'
+    `$env:TARGET_MAX_TOKENS='175'
     uvicorn api.src.main:app --host 0.0.0.0 --port 8880
 "@) -PassThru
 
