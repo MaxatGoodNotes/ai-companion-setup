@@ -1,6 +1,8 @@
 # Curated [alirezarezvani/claude-skills](https://github.com/alirezarezvani/claude-skills) picks for AI Companion
 
-Upstream is a large MIT library (200+ skills, multi-tool conversion including Cursor). **Do not bulk-install** all converted `.mdc` rules — token noise and conflicting instructions. Use **selective** install after `git clone` + `./scripts/convert.sh --tool cursor`, or install **domain bundles** via the upstream README.
+**Installed in this repo:** the full **`engineering-team/`** bundle is vendored as Cursor rules under [`.cursor/rules/`](../.cursor/rules/) (see [README](../.cursor/rules/README.md) for upstream commit and license).
+
+Upstream is a large MIT library (200+ skills, multi-tool conversion including Cursor). **Do not bulk-install** the *entire* repo’s converted rules beyond what you need — token noise and conflicting instructions. This project intentionally added **only** `engineering-team` as `.mdc` files. For other domains, use **selective** install after `git clone` + `./scripts/convert.sh --tool cursor`, or install **domain bundles** via the upstream README.
 
 ## High value for this project (personal AI + local stack)
 

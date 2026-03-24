@@ -26,6 +26,12 @@ The companion stack is **two places** (setup repo + upstream fork). Agents had n
 | [ai-companion-stack](../.cursor/skills/ai-companion-stack/SKILL.md) | Ollama + Kokoro + Open-LLM-VTuber + ports; editing `conf.yaml`, `start.sh` |
 | [ai-companion-live2d-custom](../.cursor/skills/ai-companion-live2d-custom/SKILL.md) | Syncing `customizations/` into Open-LLM-VTuber, witchZ3, toggle-inject, expression commands |
 
+### Engineering core (third-party rules)
+
+| Source | Location |
+|--------|----------|
+| [alirezarezvani/claude-skills](https://github.com/alirezarezvani/claude-skills) `engineering-team/` (converted to Cursor) | [`.cursor/rules/*.mdc`](../.cursor/rules/) — see [README](../.cursor/rules/README.md) |
+
 Plus [claude-skills recommendations](claude-skills-recommendations.md) and **AGENTS.md** at repo root.
 
 ## Security note

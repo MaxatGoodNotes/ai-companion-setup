@@ -12,6 +12,14 @@
 | Stack & ports | `/.cursor/skills/ai-companion-stack/SKILL.md` |
 | Live2D / frontend sync | `/.cursor/skills/ai-companion-live2d-custom/SKILL.md` |
 
+## Cursor rules — Engineering core (third-party)
+
+| Source | Path |
+|--------|------|
+| [alirezarezvani/claude-skills](https://github.com/alirezarezvani/claude-skills) `engineering-team/` → Cursor `.mdc` | `.cursor/rules/*.mdc` |
+
+See [`.cursor/rules/README.md`](.cursor/rules/README.md) for commit pin, license, and how to refresh. Rules are **not** always-on (`alwaysApply: false`); enable or @-reference as needed.
+
 ## Global meta-skills (user machine)
 
 - **project-bootstrap** — [cursor-master-rules](https://github.com/MaxatGoodNotes/cursor-master-rules) `skills-cursor/project-bootstrap/`

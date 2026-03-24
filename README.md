@@ -44,7 +44,7 @@ Everything runs locally. No API keys. No cloud. No data leaves your machine.
 
 ## Cursor & AI assistants
 
-Project-scoped skills live in [`.cursor/skills/`](.cursor/skills/). See [AGENTS.md](AGENTS.md) for agent context, [docs/SKILLS_AUDIT.md](docs/SKILLS_AUDIT.md) for what was added and why, and [docs/claude-skills-recommendations.md](docs/claude-skills-recommendations.md) for optional third-party skill packs ([alirezarezvani/claude-skills](https://github.com/alirezarezvani/claude-skills)).
+Project-scoped skills live in [`.cursor/skills/`](.cursor/skills/). **Engineering core** (third-party) Cursor rules live in [`.cursor/rules/`](.cursor/rules/) — see [`.cursor/rules/README.md`](.cursor/rules/README.md). See [AGENTS.md](AGENTS.md) for agent context, [docs/SKILLS_AUDIT.md](docs/SKILLS_AUDIT.md) for what was added and why, and [docs/claude-skills-recommendations.md](docs/claude-skills-recommendations.md) for optional third-party skill packs ([alirezarezvani/claude-skills](https://github.com/alirezarezvani/claude-skills)).
 
 ---
 
