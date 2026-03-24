@@ -84,9 +84,90 @@
 - `ParamEyeLSmile` / `ParamEyeRSmile`: Used for happy squints (dance, mic, excited), determined squints (shake, confused), pondering squints (think), bashful squints (shy-accept), angry squints (shy-reject), playful squints (tongue)
 - `ParamEyeBallX` / `ParamEyeBallY`: Used for gaze direction (think looks up-right, tilt drifts toward tilt, shy-accept looks down-left)
 
-## Pending
+## Phase 4 — Smart LLM Router (Next)
 
-### Future Ideas
+### Problem
+Dolphin 8B (local, uncensored) handles conversation and NSFW freely but lacks reasoning depth. Gemini Flash (cloud, $0.10/1M tokens) is much smarter but censors NSFW content. Manual `/escalate` creates friction — the user must decide when local isn't good enough.
+
+### Solution: Sentence Embedding Classifier
+A 22MB pre-trained sentence transformer (`all-MiniLM-L6-v2`) classifies each user message in ~5ms and routes it to the right backend. No training required — uses cosine similarity against curated example clusters.
+
+### Architecture
+
+```
+User message
+    |
+    v
+[NSFW keyword check] ---> NSFW? ---> Dolphin (local)
+    |
+    v (SFW)
+[Sentence embedding]
+    |
+    v
+[Cosine similarity vs local/cloud centroids]
+    |
+    +-- closer to "local" cluster ---> Dolphin (local)
+    +-- closer to "cloud" cluster ---> Gemini Flash (cloud)
+```
+
+### Routing Categories
+
+**Always local (Dolphin 8B):**
+- NSFW / sexual / dark humor / edgy content
+- Emotional support, venting, personal topics
+- Roleplay, character interactions, casual banter
+- Opinion-seeking ("what do you think about...")
+- Short casual messages
+
+**Cloud-eligible (Gemini Flash):**
+- Factual questions ("what is...", "how does...")
+- Technical help (code, math, debugging)
+- Analysis, comparison, summarization
+- Web search queries
+- Long-form reasoning tasks
+
+### Implementation Plan
+
+1. **`llm_router.py`** — new module in `src/open_llm_vtuber/`
+   - `LLMRouter` class: loads `all-MiniLM-L6-v2` at startup
+   - `router_examples.json`: curated examples (~50 per category) for centroid computation
+   - `route(message) -> "local" | "cloud"`: NSFW keyword check first, then embedding similarity
+   - Configurable bias toward local (threshold offset) to preserve immersion as default
+   - Logging: every routing decision logged with confidence score for tuning
+
+2. **`conf.yaml` changes**
+   - Add `gemini_llm` config under `llm_config` with API key (via env var)
+   - Add `router_config` section: `enabled: true`, `cloud_provider: gemini_llm`, `local_bias: 0.05`
+
+3. **Agent integration**
+   - Modify `basic_memory_agent` to accept a router instance
+   - Before calling LLM, run `router.route(message)` to pick provider
+   - If cloud is selected, swap the LLM client for that call only
+   - If cloud fails (rate limit, network), fall back to local silently
+
+4. **Manual override commands**
+   - `/local` — force next response from Dolphin regardless of routing
+   - `/cloud` — force next response from Gemini regardless of routing
+   - `/router` — show last 5 routing decisions with confidence scores
+
+5. **Dependencies**
+   - `sentence-transformers` (~1MB, torch already installed)
+   - `google-generativeai` or use existing `openai_compatible_llm` with Gemini's OpenAI-compatible endpoint
+   - `all-MiniLM-L6-v2` model weights (~22MB, downloaded once to `models/`)
+
+6. **Tuning workflow**
+   - Run for a week with logging enabled
+   - Review misrouted messages in logs
+   - Add misrouted examples to `router_examples.json` and recompute centroids
+   - Adjust `local_bias` threshold if too many/few messages go to cloud
+
+### Design Decisions
+- **Default is always local** — cloud is opt-in by the classifier, not opt-out. If the classifier is uncertain, it stays on Dolphin. Immersion > intelligence.
+- **No LLM-based routing** — the local 8B model can't reliably judge its own competence. A separate tiny classifier avoids this trap.
+- **NSFW check is keyword-based, not ML** — keywords are deterministic and reliable for this; false negatives here would break immersion via Gemini refusal.
+- **Stateless per-message routing** — each message routed independently. No conversation-level state (if a technical conversation drifts to banter, the next message correctly routes back to local).
+
+## Pending — Future Ideas
 - Voice cloning / custom TTS voice
 - Multi-character support (switch models via command)
 - Streaming response improvements
