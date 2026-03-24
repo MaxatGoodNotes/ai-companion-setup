@@ -312,3 +312,11 @@ Minimum recommended: 16 GB RAM (macOS) or 16 GB RAM + 6 GB VRAM (Windows with GP
 - [Kokoro-FastAPI](https://github.com/remsky/Kokoro-FastAPI) — TTS server
 - [Dolphin](https://huggingface.co/cognitivecomputations) — uncensored LLM fine-tunes by Eric Hartford
 - [Sherpa-ONNX](https://github.com/k2-fsa/sherpa-onnx) — speech recognition
+
+---
+
+## Cursor: project-bootstrap meta skill
+
+This repo also ships a **reusable Cursor skill** for bootstrapping any new project (personal or professional): scaffold files, `gh repo create`, import Cursor rules, optionally pull selective packs from [alirezarezvani/claude-skills](https://github.com/alirezarezvani/claude-skills), and run a security gate.
+
+See [skills/project-bootstrap/README.md](skills/project-bootstrap/README.md).
